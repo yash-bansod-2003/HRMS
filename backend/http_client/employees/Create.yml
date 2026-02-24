@@ -6,6 +6,14 @@ info:
 http:
   method: POST
   url: "{{base_url}}/api/employees/"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Tony Stark",
+        "email": "tonystark@avengers.com",
+        "department": "IT"
+      }
   auth: inherit
 
 settings:
