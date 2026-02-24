@@ -1,0 +1,145 @@
+# === Python ===
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-wheel-metadata/
+pip-log.txt
+
+# Virtual environment
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+.venv/
+.pyenv/
+.python-version
+
+# === Django ===
+# Ignore local settings and DB
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Media and uploaded files
+media/
+uploads/
+
+# Collected static files (remove if you commit static files intentionally)
+staticfiles/
+
+# Django logs
+*.log
+
+# === Testing / Coverage ===
+.pytest_cache/
+coverage/
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+
+# tox / nox
+.tox/
+.nox/
+
+# === Type checkers ===
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+typings/
+
+# === IDEs / Editors ===
+.idea/
+*.iml
+.vscode/
+.history/
+*.sublime-workspace
+*.sublime-project
+
+# Editor temporary files
+*~
+*.swp
+*.swo
+*.swn
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === Background / process files ===
+celerybeat-schedule
+celerybeat.pid
+
+# Sphinx
+docs/_build/
+
+# Build / packaging
+*.egg-info/
+dist/
+build/
+
+# Node / frontend
+node_modules/
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+package-lock.json
+.pnp*
+
+# Environment and secret files
+.env
+.env.*
+.env.local
+.env.*.local
+secrets.json
+.secret*
+*.pem
+*.key
+
+# Docker / local tooling
+docker-compose.override.yml
+.envrc
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Misc
+*.pyc
+*.pyo
+*.pyd
+
+# Optional: local static/media directories used in some projects. Remove if you track them.
+media_root/
+static_root/
+
+# End of file
