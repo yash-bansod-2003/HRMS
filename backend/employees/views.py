@@ -1,11 +1,17 @@
-from django.shortcuts import render
-from rest_framework import viewsets, status
+from rest_framework import viewsets, mixins
 from rest_framework.response import Response
+from rest_framework import status
 from .models import Employee
 from .serializers import EmployeeSerializer
 
 # Create your views here.
-class EmployeeViewSet(viewsets.ModelViewSet):
+class EmployeeViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet
+):
     queryset = Employee.objects.all().order_by("-created_at")
     serializer_class = EmployeeSerializer
 
