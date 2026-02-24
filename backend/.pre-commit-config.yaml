@@ -3,11 +3,13 @@ repos:
     rev: 25.11.0
     hooks:
       - id: black
+        exclude: ^.*/migrations/.*$
 
   - repo: https://github.com/PyCQA/isort
     rev: 7.0.0
     hooks:
       - id: isort
+        exclude: ^.*/migrations/.*$
 
   - repo: https://github.com/PyCQA/flake8
     rev: 7.3.0
