@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from rest_framework import viewsets, mixins
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import mixins, viewsets
 from rest_framework.filters import OrderingFilter
+
 from .models import Attendance
 from .serializers import AttendanceSerializer
 
@@ -12,7 +12,7 @@ class AttendanceViewSet(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
-    viewsets.GenericViewSet
+    viewsets.GenericViewSet,
 ):
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer

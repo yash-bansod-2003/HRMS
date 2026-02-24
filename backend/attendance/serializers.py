@@ -1,6 +1,8 @@
-from rest_framework import serializers
-from .models import Attendance
 from django.utils import timezone
+from rest_framework import serializers
+
+from .models import Attendance
+
 
 class AttendanceSerializer(serializers.ModelSerializer):
     employee_name = serializers.ReadOnlyField(source="employee.name")
@@ -12,9 +14,7 @@ class AttendanceSerializer(serializers.ModelSerializer):
 
     def validate_date(self, value):
         if value > timezone.now().date():
-            raise serializers.ValidationError(
-                "Attendance date cannot be in the future."
-            )
+            raise serializers.ValidationError("Attendance date cannot be in the future.")
         return value
 
     def validate(self, data):

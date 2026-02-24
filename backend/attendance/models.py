@@ -1,4 +1,5 @@
 from django.db import models
+
 from employees.models import Employee
 
 # Create your models here.
@@ -7,12 +8,11 @@ status_choices = [
     ("ABSENT", "Absent"),
 ]
 
+
 class Attendance(models.Model):
     id = models.AutoField(primary_key=True)
     employee = models.ForeignKey(
-        Employee,
-        on_delete=models.CASCADE,
-        related_name="attendances"
+        Employee, on_delete=models.CASCADE, related_name="attendances"
     )
     date = models.DateField()
     status = models.CharField(max_length=10, choices=status_choices)
