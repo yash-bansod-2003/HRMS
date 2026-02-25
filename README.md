@@ -254,49 +254,6 @@ docker build -f backend/docker/production/Dockerfile -t hrms-backend .
 docker build -f frontend/docker/production/Dockerfile -t hrms-frontend .
 ```
 
-## 📝 Assumptions & Limitations
-
-### Assumptions
-
-1. **Database**: SQLite is used for development; production should use PostgreSQL
-2. **Authentication**: Currently uses Django session authentication; JWT can be implemented for production
-3. **Departments**: Limited to three departments (HR, IT, Sales) - can be extended to a separate model
-4. **Attendance Status**: Binary status (Present/Absent) - can be extended for half-day, late, etc.
-5. **Time Zone**: Uses server's default timezone for date handling
-
-### Limitations
-
-1. **User Authentication**: No multi-user authentication system implemented in the current version
-2. **Role-based Access**: No granular permissions (HR admin, manager, employee roles)
-3. **Email Notifications**: No automated email notifications for attendance or employee updates
-4. **Reports**: No built-in reporting or analytics dashboard
-5. **File Uploads**: No support for employee documents or profile pictures
-6. **Audit Trail**: No comprehensive logging of changes to records
-7. **Mobile App**: No native mobile application (responsive web only)
-8. **Search**: Basic filtering available; advanced search not implemented
-
-## 🔮 Future Enhancements
-
-- JWT authentication and authorization
-- Role-based access control (RBAC)
-- Employee document management
-- Advanced reporting and analytics
-- Leave management system
-- Payroll integration
-- Email notifications
-- Audit logging
-- Export data to Excel/PDF
-- Advanced search and filters
-- Real-time notifications
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## 👤 Author
 
 **Yash Bansod**
