@@ -1,4 +1,4 @@
-import type { ColumnDef } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table";
 
 export interface Employee {
   id: number;
@@ -24,5 +24,5 @@ export const columns: ColumnDef<Employee>[] = [
   {
     accessorKey: "created_at",
     header: "Date Added",
-  }
-]
+  },
+];
