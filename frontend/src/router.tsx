@@ -24,11 +24,11 @@ export const router = createBrowserRouter([
         element: <div>Welcome to the Dashboard</div>,
       },
       {
-        path: "/dashboard/users",
+        path: "/dashboard/employees",
         element: <EmployeesDashboardPage />,
       },
       {
-        path: "/dashboard/restaurants",
+        path: "/dashboard/attendance",
         element: <AttendanceDashboardPage />,
       },
     ],
