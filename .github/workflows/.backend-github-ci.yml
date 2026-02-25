@@ -17,6 +17,7 @@ jobs:
       DJANGO_SETTINGS_MODULE: hrms.settings
       SECRET_KEY: ci-secret-key
       DEBUG: "False"
+      DATABASE_URL: ${ secrets.DATABASE_URL }
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
