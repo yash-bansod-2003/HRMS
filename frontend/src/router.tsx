@@ -1,5 +1,5 @@
-import { createBrowserRouter } from "react-router";
-import { Button } from "@/components/ui/button";
+import { createBrowserRouter, Link } from "react-router";
+import { buttonVariants } from "@/components/ui/button";
 
 import EmployeesDashboardPage from "@/pages/dashboard/employees";
 import AttendanceDashboardPage from "@/pages/dashboard/attendance";
@@ -10,8 +10,11 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div className="flex min-h-svh flex-col items-center justify-center">
-        <Button>Click me</Button>
+      <div className="flex min-h-svh flex-col gap-4 items-center justify-center">
+        <p>Hey, Not build and home page due to time limits but you can access dashboard</p>
+        <Link to="/dashboard" className={buttonVariants()}>
+          Dashboard
+        </Link>
       </div>
     ),
   },

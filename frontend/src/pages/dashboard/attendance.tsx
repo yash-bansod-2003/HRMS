@@ -220,7 +220,7 @@ const AttendancePage = () => {
                                 <SelectValue placeholder="Select status" />
                               </SelectTrigger>
                               <SelectContent position="item-aligned">
-                                {["PRESENT", "ABSENT", "LEAVE"].map(
+                                {["PRESENT", "ABSENT"].map(
                                   (status) => (
                                     <SelectItem key={status} value={status}>
                                       {status}
