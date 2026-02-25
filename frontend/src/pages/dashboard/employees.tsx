@@ -6,15 +6,6 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
   Sheet,
   SheetClose,
   SheetContent,
@@ -51,6 +42,8 @@ import {
 import { DashboardHeader } from "@/components/dashboard-header";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import { columns } from "@/components/dashboard/employees/columns";
+import { DataTable } from "@/components/dashboard/employees/data-table";
 
 const departments = [
   { label: "Human Resources", value: "HR" },
@@ -69,12 +62,7 @@ const formSchema = z.object({
     .min(1, "Please select a department."),
 });
 
-export interface Employee {
-  id: number;
-  name: string;
-  email: string;
-  department: string;
-}
+
 
 const EmployeesPage = () => {
   const query = useQuery({
@@ -274,34 +262,7 @@ const EmployeesPage = () => {
           </SheetContent>
         </Sheet>
       </DashboardHeader>
-      <Table>
-        <TableCaption>A list of all employees in the system</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Department</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {query.data.map((employee: Employee) => (
-            <TableRow key={employee.id}>
-              <TableCell className="font-medium">{employee.id}</TableCell>
-              <TableCell>{employee.name}</TableCell>
-              <TableCell>{employee.email}</TableCell>
-              <TableCell>{employee.department}</TableCell>
-              <TableCell className="text-right">
-                <button className="text-blue-500 hover:underline">Edit</button>
-                <button className="text-red-500 hover:underline ml-2">
-                  Delete
-                </button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <DataTable columns={columns} data={query.data || []} />
     </div>
   );
 };
