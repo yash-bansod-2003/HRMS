@@ -1,5 +1,5 @@
 import { httpClient } from "@/lib/http-client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Navigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -85,6 +85,22 @@ const EmployeesPage = () => {
     },
   });
 
+  const mutation = useMutation({
+    mutationFn: async (data: z.infer<typeof formSchema>) => {
+      const response = await httpClient.post("/api/employees/", data);
+      return response.data;
+    },
+    onSuccess: () => {
+      query.refetch();
+      form.reset();
+      toast.success("Employee created successfully!");
+    },
+    onError: (error) => {
+      toast.error("Failed to create employee. Please try again.");
+      console.error("Error creating employee:", error);
+    },
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -94,20 +110,7 @@ const EmployeesPage = () => {
     },
   });
   function onSubmit(data: z.infer<typeof formSchema>) {
-    toast("You submitted the following values:", {
-      description: (
-        <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
-      },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
-    });
+    mutation.mutate(data);
   }
 
   if (!query.isLoading && !query.data) {
@@ -153,6 +156,7 @@ const EmployeesPage = () => {
                       <Controller
                         name="name"
                         control={form.control}
+                        disabled={mutation.isPending}
                         render={({ field, fieldState }) => (
                           <Field data-invalid={fieldState.invalid}>
                             <FieldLabel htmlFor="employee-name">
@@ -174,6 +178,7 @@ const EmployeesPage = () => {
                       <Controller
                         name="email"
                         control={form.control}
+                        disabled={mutation.isPending}
                         render={({ field, fieldState }) => (
                           <Field data-invalid={fieldState.invalid}>
                             <FieldLabel htmlFor="employee-email">
@@ -208,6 +213,7 @@ const EmployeesPage = () => {
                       <Controller
                         name="department"
                         control={form.control}
+                        disabled={mutation.isPending}
                         render={({ field, fieldState }) => (
                           <Field
                             orientation="responsive"
@@ -255,7 +261,9 @@ const EmployeesPage = () => {
                 </Card>
               </div>
               <SheetFooter>
-                <Button type="submit">Create Employee</Button>
+                <Button type="submit" disabled={mutation.isPending}>
+                  Create Employee
+                </Button>
                 <SheetClose asChild>
                   <Button variant="outline" onClick={() => form.reset()}>
                     Cancel
