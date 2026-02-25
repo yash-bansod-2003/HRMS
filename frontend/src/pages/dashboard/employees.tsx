@@ -53,22 +53,20 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 
 const departments = [
-  { label: "Information Technology", value: "IT" },
   { label: "Human Resources", value: "HR" },
-  { label: "Finance", value: "Finance" },
-  { label: "Marketing", value: "Marketing" },
+  { label: "Information Technology", value: "IT" },
+  { label: "Sales", value: "Sales" },
 ] as const;
 
 const formSchema = z.object({
   name: z
     .string()
-    .min(5, "Bug name must be at least 5 characters.")
-    .max(32, "Bug name must be at most 32 characters."),
+    .min(2, "Employee name must be at least 2 characters.")
+    .max(100, "Employee name must be at most 100 characters."),
   email: z.email("Please enter a valid email address."),
   department: z
     .string()
-    .min(2, "Department must be at least 2 characters.")
-    .max(32, "Department must be at most 32 characters."),
+    .min(1, "Please select a department."),
 });
 
 export interface Employee {
@@ -131,11 +129,11 @@ const EmployeesPage = () => {
         <Sheet>
           <SheetTrigger asChild>
             <Button>
-              <PlusCircle className="mr-2" /> Employee
+              <PlusCircle className="mr-2" /> Add Employee
             </Button>
           </SheetTrigger>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <SheetContent>
+          <SheetContent>
+            <form className="h-full flex flex-col justify-between" onSubmit={form.handleSubmit(onSubmit)}>
               <SheetHeader>
                 <SheetTitle>Create Employee</SheetTitle>
                 <SheetDescription>
@@ -145,9 +143,9 @@ const EmployeesPage = () => {
               <div className="w-full p-4 flex flex-col gap-2">
                 <Card className="w-full">
                   <CardHeader>
-                    <CardTitle>Bug Report</CardTitle>
+                    <CardTitle>Employee Information</CardTitle>
                     <CardDescription>
-                      Help us improve by reporting bugs you encounter.
+                      Enter the employee's personal and work details.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -157,15 +155,15 @@ const EmployeesPage = () => {
                         control={form.control}
                         render={({ field, fieldState }) => (
                           <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="form-rhf-demo-title">
-                              Name
+                            <FieldLabel htmlFor="employee-name">
+                              Full Name
                             </FieldLabel>
                             <Input
                               {...field}
-                              id="form-rhf-demo-title"
+                              id="employee-name"
                               aria-invalid={fieldState.invalid}
-                              placeholder="Login button not working on mobile"
-                              autoComplete="off"
+                              placeholder="John Doe"
+                              autoComplete="name"
                             />
                             {fieldState.invalid && (
                               <FieldError errors={[fieldState.error]} />
@@ -178,15 +176,16 @@ const EmployeesPage = () => {
                         control={form.control}
                         render={({ field, fieldState }) => (
                           <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="form-rhf-demo-title">
-                              Email
+                            <FieldLabel htmlFor="employee-email">
+                              Email Address
                             </FieldLabel>
                             <Input
                               {...field}
-                              id="form-rhf-demo-title"
+                              id="employee-email"
+                              type="email"
                               aria-invalid={fieldState.invalid}
-                              placeholder="Login button not working on mobile"
-                              autoComplete="off"
+                              placeholder="john.doe@company.com"
+                              autoComplete="email"
                             />
                             {fieldState.invalid && (
                               <FieldError errors={[fieldState.error]} />
@@ -199,9 +198,9 @@ const EmployeesPage = () => {
                 </Card>
                 <Card className="w-full">
                   <CardHeader>
-                    <CardTitle>Bug Report</CardTitle>
+                    <CardTitle>Work Details</CardTitle>
                     <CardDescription>
-                      Help us improve by reporting bugs you encounter.
+                      Configure organizational and operational information.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -215,12 +214,11 @@ const EmployeesPage = () => {
                             data-invalid={fieldState.invalid}
                           >
                             <FieldContent>
-                              <FieldLabel htmlFor="form-rhf-select-language">
+                              <FieldLabel htmlFor="employee-department">
                                 Department
                               </FieldLabel>
                               <FieldDescription>
-                                For best results, select the department you
-                                belong to.
+                                Select the department the employee belongs to.
                               </FieldDescription>
                               {fieldState.invalid && (
                                 <FieldError errors={[fieldState.error]} />
@@ -232,11 +230,11 @@ const EmployeesPage = () => {
                               onValueChange={field.onChange}
                             >
                               <SelectTrigger
-                                id="form-rhf-select-department"
+                                id="employee-department"
                                 aria-invalid={fieldState.invalid}
-                                className="min-w-[120px]"
+                                className="min-w-[200px]"
                               >
-                                <SelectValue placeholder="Select" />
+                                <SelectValue placeholder="Select department" />
                               </SelectTrigger>
                               <SelectContent position="item-aligned">
                                 {departments.map((dept) => (
@@ -257,24 +255,25 @@ const EmployeesPage = () => {
                 </Card>
               </div>
               <SheetFooter>
-                <Button type="submit">Save changes</Button>
+                <Button type="submit">Create Employee</Button>
                 <SheetClose asChild>
                   <Button variant="outline" onClick={() => form.reset()}>
-                    Close
+                    Cancel
                   </Button>
                 </SheetClose>
               </SheetFooter>
-            </SheetContent>
-          </form>
+            </form>
+          </SheetContent>
         </Sheet>
       </DashboardHeader>
       <Table>
-        <TableCaption>A list of your employees</TableCaption>
+        <TableCaption>A list of all employees in the system</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">ID</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
+            <TableHead>Department</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -284,6 +283,7 @@ const EmployeesPage = () => {
               <TableCell className="font-medium">{employee.id}</TableCell>
               <TableCell>{employee.name}</TableCell>
               <TableCell>{employee.email}</TableCell>
+              <TableCell>{employee.department}</TableCell>
               <TableCell className="text-right">
                 <button className="text-blue-500 hover:underline">Edit</button>
                 <button className="text-red-500 hover:underline ml-2">
