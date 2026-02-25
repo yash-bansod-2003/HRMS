@@ -57,12 +57,8 @@ const formSchema = z.object({
     .min(2, "Employee name must be at least 2 characters.")
     .max(100, "Employee name must be at most 100 characters."),
   email: z.email("Please enter a valid email address."),
-  department: z
-    .string()
-    .min(1, "Please select a department."),
+  department: z.string().min(1, "Please select a department."),
 });
-
-
 
 const EmployeesPage = () => {
   const query = useQuery({
@@ -124,7 +120,10 @@ const EmployeesPage = () => {
             </Button>
           </SheetTrigger>
           <SheetContent>
-            <form className="h-full flex flex-col justify-between" onSubmit={form.handleSubmit(onSubmit)}>
+            <form
+              className="h-full flex flex-col justify-between"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <SheetHeader>
                 <SheetTitle>Create Employee</SheetTitle>
                 <SheetDescription>
