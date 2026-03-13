@@ -4,6 +4,7 @@ from rest_framework.filters import OrderingFilter
 
 from .models import Attendance
 from .serializers import AttendanceSerializer
+from .pagination import StandardResultsSetPagination
 
 # Create your views here.
 
@@ -12,10 +13,12 @@ class AttendanceViewSet(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
     viewsets.GenericViewSet,
 ):
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
+    pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ["employee", "date", "status"]
     ordering_fields = ["date"]

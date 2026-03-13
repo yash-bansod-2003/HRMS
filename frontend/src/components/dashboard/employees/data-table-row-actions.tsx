@@ -1,6 +1,6 @@
 import { type Row } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
-
+import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { departments } from "./columns";
+import { employeeSchema, departments } from "./columns";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -25,7 +25,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const user = row.original as { department: string };
+  const user = employeeSchema.parse(row.original);
 
   return (
     <DropdownMenu>
@@ -40,7 +40,9 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem disabled>Edit</DropdownMenuItem>
+        <Link to={`/dashboard/employees/edit/${user.id}`}>
+          <DropdownMenuItem >Edit</DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>

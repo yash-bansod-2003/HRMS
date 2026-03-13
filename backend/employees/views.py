@@ -1,8 +1,8 @@
 from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response
-
 from .models import Employee
 from .serializers import EmployeeSerializer
+from .pagination import StandardResultsSetPagination
 
 
 # Create your views here.
@@ -15,6 +15,7 @@ class EmployeeViewSet(
 ):
     queryset = Employee.objects.all().order_by("-created_at")
     serializer_class = EmployeeSerializer
+    pagination_class = StandardResultsSetPagination
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
