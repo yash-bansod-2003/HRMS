@@ -1,22 +1,20 @@
-import { createBrowserRouter, Link } from "react-router";
-import { buttonVariants } from "@/components/ui/button";
+import { createBrowserRouter } from "react-router";
 
-import EmployeesDashboardPage from "@/pages/dashboard/employees";
-import AttendanceDashboardPage from "@/pages/dashboard/attendance";
+import MarketingPage from "@/pages/marketing";
+import DashboardHomePage from "@/pages/dashboard/home";
+import EmployeesDashboardPage from "@/pages/dashboard/employees/employees";
+import EmployeeCreatePage from "@/pages/dashboard/employees/employee-create";
+import EmployeeEditPage from "@/pages/dashboard/employees/employee-edit";
+import AttendanceDashboardPage from "@/pages/dashboard/attendance/attendance";
+import AttendanceCreatePage from "@/pages/dashboard/attendance/attendance-create";
+import AttendanceEditPage from "@/pages/dashboard/attendance/attendance-edit";
 
 import DashboardLayout from "@/layouts/dashboard-layout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <div className="flex min-h-svh flex-col gap-4 items-center justify-center">
-        <p>Hey, Not build and home page due to time limits but you can access dashboard</p>
-        <Link to="/dashboard" className={buttonVariants()}>
-          Dashboard
-        </Link>
-      </div>
-    ),
+    element: <MarketingPage />,
   },
   {
     path: "/dashboard",
@@ -24,15 +22,31 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <div>Welcome to the Dashboard</div>,
+        element: <DashboardHomePage />,
       },
       {
         path: "/dashboard/employees",
         element: <EmployeesDashboardPage />,
       },
       {
+        path: "/dashboard/employees/create",
+        element: <EmployeeCreatePage />,
+      },
+      {
+        path: "/dashboard/employees/edit/:id",
+        element: <EmployeeEditPage />,
+      },
+      {
         path: "/dashboard/attendance",
         element: <AttendanceDashboardPage />,
+      },
+      {
+        path: "/dashboard/attendance/create",
+        element: <AttendanceCreatePage />,
+      },
+      {
+        path: "/dashboard/attendance/edit/:id",
+        element: <AttendanceEditPage />,
       },
     ],
   },

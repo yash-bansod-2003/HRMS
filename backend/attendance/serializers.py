@@ -3,7 +3,6 @@ from rest_framework import serializers
 
 from .models import Attendance
 
-
 class AttendanceSerializer(serializers.ModelSerializer):
     employee_name = serializers.ReadOnlyField(source="employee.name")
 
@@ -18,11 +17,16 @@ class AttendanceSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, data):
-        employee = data.get("employee")
-        date = data.get("date")
+        employee = data.get("employee", getattr(self.instance, "employee", None))
+        date = data.get("date", getattr(self.instance, "date", None))
 
-        if Attendance.objects.filter(employee=employee, date=date).exists():
-            raise serializers.ValidationError(
-                "Attendance already marked for this employee on this date."
-            )
+        if employee and date:
+            existing_records = Attendance.objects.filter(employee=employee, date=date)
+            if self.instance:
+                existing_records = existing_records.exclude(pk=self.instance.pk)
+
+            if existing_records.exists():
+                raise serializers.ValidationError(
+                    "Attendance already marked for this employee on this date."
+                )
         return data
