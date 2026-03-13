@@ -9,6 +9,11 @@ from employees.models import Employee
 
 
 @api_view(["GET"])
+def health_check(request):
+    return Response({"status": "ok"})
+
+
+@api_view(["GET"])
 def dashboard_stats(request):
     today = date.today()
     current_month = today.month
