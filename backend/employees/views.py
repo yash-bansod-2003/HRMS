@@ -1,8 +1,9 @@
 from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response
+
 from .models import Employee
-from .serializers import EmployeeSerializer
 from .pagination import StandardResultsSetPagination
+from .serializers import EmployeeSerializer
 
 
 # Create your views here.

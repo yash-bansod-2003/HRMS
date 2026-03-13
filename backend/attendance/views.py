@@ -3,8 +3,8 @@ from rest_framework import mixins, viewsets
 from rest_framework.filters import OrderingFilter
 
 from .models import Attendance
-from .serializers import AttendanceSerializer
 from .pagination import StandardResultsSetPagination
+from .serializers import AttendanceSerializer
 
 # Create your views here.
 
